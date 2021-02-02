@@ -32,10 +32,10 @@ bot.on('message', ctx => {
   //   .then(res => res.json())
   //   .then(json => {
   //     const picUrl = json.graphql.user.profile_pic_url_hd;
-  //     // try {
-  //     download(picUrl, path, () => {});
-  //     ctx.replyWithDocument({ source: `./pics/${nickname}.png` });
-  //     // } catch (error) { ctx.reply('There is no such user'); }
+  //     try {
+  //       download(picUrl, path, () => {});
+  //       ctx.replyWithDocument({ source: `./pics/${nickname}.png` });
+  //     } catch (error) { ctx.reply('There is no such user'); }
   //   });
 });
 
