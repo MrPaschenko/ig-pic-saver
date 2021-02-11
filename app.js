@@ -3,32 +3,23 @@
 const fs = require('fs');
 const request = require('request');
 const fetch = require('node-fetch');
-const readline = require('readline');
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
-});
 
 const download = (url, path, callback) => {
-  request.head(url, (err, res, body) => {
+  request.head(url, () => {
     request(url)
       .pipe(fs.createWriteStream(path))
       .on('close', callback);
   });
 };
 
-rl.question('Please enter instagram nickname: ', nickname => {
+async function igPic(nickname) {
   const url = `https://www.instagram.com/${nickname}/?__a=1`;
   const path = `./pics/${nickname}.png`;
-  console.log('Processing...');
-  console.log(`General information is located here: ${url}`);
-  fetch(url)
-    .then(res => res.json())
-    .then(json => {
-      const picUrl = json.graphql.user.profile_pic_url_hd;
-      download(picUrl, path, () => {
-        console.log('Done!');
-      });
-    });
-  rl.close();
-});
+  const json = await fetch(url).then(res => res.json());
+  const picUrl = json.graphql.user.profile_pic_url_hd;
+  download(picUrl, path, () => {
+    console.log('Done!');
+  });
+}
+
+igPic('mrpaschenko');
