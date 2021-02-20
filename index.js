@@ -17,7 +17,7 @@ async function igPic(nickname) {
   const path = `./pics/${nickname}.png`;
   const json = await fetch(url).then(res => res.json());
   const picUrl = json.graphql.user.profile_pic_url_hd;
-  
+
   download(picUrl, path, () => {
     console.log('Done!');
   });
